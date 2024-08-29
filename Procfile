@@ -1,1 +1,1 @@
-web: gunicorn backend.wsgi:application --chdir website/src/backend
+web: gunicorn backend.wsgi --log-file -
