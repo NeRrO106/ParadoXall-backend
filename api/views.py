@@ -14,6 +14,17 @@ def get_products(request):
     product_list = list(products.values())
     return JsonResponse(product_list, safe=False)
 
+@api_view(['POST'])
+def create_order(request):
+    serializer = OrderSerializer(data=request.data)
+    if serializer.is_valid():
+        order = serializer.save()
+
+        send_order_to_restaurant(request.data)
+
+        return Response({'message:': 'Order placed succesfully'}, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 def send_order_to_restaurant(order_data):
     subject='O noua comanda'
     message=f"""
@@ -51,15 +62,3 @@ def send_order_to_restaurant(order_data):
         [restaurant_email],
         fail_silently=False,
     )
-
-@api_view(['POST'])
-def create_order(request):
-    serializer = OrderSerializer(data=request.data)
-    if serializer.is_valid():
-        order = serializer.save()
-
-        send_order_to_restaurant(request.data)
-
-        return Response({'message:': 'Order placed succesfully'}, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
