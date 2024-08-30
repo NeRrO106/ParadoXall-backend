@@ -36,7 +36,7 @@ greenlet==1.1.2
 gunicorn==23.0.0
 #gyp==0.1
 httplib2==0.20.2
-idna==3.3
+#idna==3.3
 importlib-metadata==4.6.4
 ipython==8.12.3
 jedi==0.19.1
