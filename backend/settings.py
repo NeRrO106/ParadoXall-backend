@@ -53,7 +53,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # Adresa front-end-ului React
+    "https://paradoxall.netlify.app/",  # Adresa front-end-ului React
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -83,11 +83,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default':{
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'restaurant',
-        'USER': 'admin',
-        'PASSWORD': 'andreicosma1234',
-        'HOST': 'db-restaurant-test.cr84eusa0dx2.eu-north-1.rds.amazonaws.com',
-        'PORT': '3306',
+        'NAME': os.getenv('DATABASE_NAME'),
+        'USER': os.getenv('DATABASE_USER'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+        'HOST': os.getenv('DATABASE_HOST'),
+        'PORT': os.getenv('DATABASE_PORT'),
     }
 }
 
