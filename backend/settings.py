@@ -21,7 +21,8 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    'https://paradoxall-80370d8dd2e4.herokuapp.com/'
+    'paradoxall-80370d8dd2e4.herokuapp.com',
+    'paradoxall.netlify.app',
 ]
 
 
@@ -37,6 +38,7 @@ INSTALLED_APPS = [
     'api',
     'corsheaders',
     'rest_framework',
+    'whitenoise.runserver_nostatic',
 ]
 
 MIDDLEWARE = [
@@ -53,7 +55,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "https://paradoxall.netlify.app/",  # Adresa front-end-ului React
+    "https://paradoxall.netlify.app",  # Adresa front-end-ului React
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -139,7 +141,9 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 django_heroku.settings(locals())
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
