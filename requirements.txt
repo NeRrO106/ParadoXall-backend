@@ -53,7 +53,7 @@ psycopg2-binary==2.9.9
 ptyprocess==0.7.0
 pycairo==1.20.1
 pycups==2.0.1
-PyGObject==3.42.1
+#PyGObject==3.42.1
 PyJWT==2.3.0
 pymacaroons==0.13.0
 PyMySQL==1.1.1
