@@ -27,13 +27,18 @@ def create_order(request):
 
 def send_order_to_restaurant(order_data):
     subject='O noua comanda'
+
+    delivery_method_display = 'Ridicare' if order_data['delivery_methods'] == 'pickup' else delivery_method_display = 'Livrare'
+    delivery_adress_display = 'N/A' if order_data['address'] == 'ridicare' else order_data['address']
+    delivery_city_display = 'N/A' if order_data['city'] == 'ridicare' else order_data['city']
+
     message=f"""
         O noua comanda a fost plasata:
         - Nume client: {order_data['customer_name']}
         - Telefon: {order_data['phone_number']}
-        - Metoda de livrare: {order_data['delivery_methods']}
-        - Adresa: {order_data.get('address', 'N/A')}
-        - Oras: {order_data.get('city', 'N/A')}
+        - Metoda de livrare: {delivery_method_display}
+        - Adresa: {delivery_adress_display}
+        - Oras: {delivery_city_display}
         - Judet: {order_data['region']}
         - Metoda de plata: {order_data['payment_methods']}
         - Informatii suplimentare: {order_data.get('additional_info', 'N/A')}
@@ -49,7 +54,7 @@ def send_order_to_restaurant(order_data):
         item_total = item_price * item['quantity']
         total_price += item_total
 
-        message += f"- Produs: {item_name},{item['selected_option']}, \nCantitate: {item['quantity']}, Pret: {item_price} lei,\n"   
+        message += f"     -Produs: {item_name}, {item['selected_option']}, \nCantitate: {item['quantity']}, Pret: {item_price} lei,"   
 
     message += f"\nTotal comanda: {total_price} lei"
 
