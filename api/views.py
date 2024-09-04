@@ -54,7 +54,7 @@ def send_order_to_restaurant(order_data):
         item_total = item_price * item['quantity']
         total_price += item_total
 
-        message += f"     -Produs: {item_name}, {item['selected_option']}, \nCantitate: {item['quantity']}, Pret: {item_price} lei,"   
+        message += f"     -Produs: {item_name}, {item['selected_option']}, \nCantitate: {item['quantity']}, Pret: {item_price} lei,\n"   
 
     message += f"\nTotal comanda: {total_price} lei"
 
