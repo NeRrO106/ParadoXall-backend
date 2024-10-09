@@ -16,7 +16,7 @@ def get_products(request):
     return JsonResponse(product_list, safe=False)
 
 def get_product(request, id):
-    product = get_object_or_404(Product, id=id)
+    product = get_object_or_404(Product, product_id=id)
     product_data = {
         'id': product.product_id,
         'name': product.name,
