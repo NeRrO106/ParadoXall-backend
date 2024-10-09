@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import OrderSerializer
+from django.shortcuts import get_object_or_404
 
 from django.core.mail import send_mail
 from django.conf import settings
@@ -13,6 +14,20 @@ def get_products(request):
     products = Product.objects.all()
     product_list = list(products.values())
     return JsonResponse(product_list, safe=False)
+
+def get_product(request, id):
+    product = get_object_or_404(Product, id=id)
+    product_data = {
+        'id': product.product_id,
+        'name': product.name,
+        'category': product.category,
+        'description': product.description,
+        'image_url': product.image_url,
+        'price': product.price,
+        'sub_description': product.sub_description
+    }
+    return JsonResponse(product_data, safe=False)
+
 
 @api_view(['POST'])
 def create_order(request):
