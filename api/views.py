@@ -28,6 +28,36 @@ def get_product(request, id):
     }
     return JsonResponse(product_data, safe=False)
 
+def get_orders(request):
+    orders = Order.objects.prefetch_related('order_items__product').all()
+    data = []
+
+    for order in orders:
+        order_data = {
+            'order_id': order.order_id,
+            'customer_name': order.customer_name,
+            'order_date': order.order_date,
+            'total_amount': order.total_amount,
+            'phone_number': order.phone_number,
+            'email': order.email,
+            'delivery_method': order.delivery_method,
+            'address': order.address,
+            'city': order.city,
+            'region': order.region,
+            'payment_methods': order.payment_methods,
+            'additional_info': order.additional_info,
+            'items':[
+                {
+                    'product_name': item.product.name,
+                    'product_price': float(item.product.price),
+                    'quantity': item.quantity,
+                    'selected_option': item.selected_option,
+                }
+                for item in order.order_items.all()
+            ]
+        }
+        data.append(order_data)
+    return JsonResponse(data, safe=False)
 
 @api_view(['POST'])
 def create_order(request):
