@@ -36,8 +36,8 @@ class Order(models.Model):
     region = models.CharField(max_length=100)
     payment_methods = models.CharField(max_length=20, choices=PAYMENT_METHODS, default='cash')
     additional_info = models.TextField(null=True, blank=True)
-    notifications = models.CharField(null=False)
-    is_completed = models.CharField(null=False)
+    notifications = models.CharField(max_length=20,null=False)
+    is_completed = models.CharField(max_length=20,null=False)
 
 
 class Order_Item(models.Model):
