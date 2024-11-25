@@ -16,7 +16,7 @@ class OrderSerializer(serializers.ModelSerializer):
             'customer_name', 'phone_number', 'email', 
             'delivery_method', 'address', 'city', 'region', 
             'payment_methods', 'additional_info', 'order_items',
-            'total_amount'
+            'total_amount', 'notifications', 'is_completed'
         ]
 
     def create(self, validate_data):
