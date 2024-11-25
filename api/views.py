@@ -46,6 +46,8 @@ def get_orders(request):
             'region': order.region,
             'payment_methods': order.payment_methods,
             'additional_info': order.additional_info,
+            'notifications': order.notifications,
+            'is_completed': order.is_completed,
             'items':[
                 {
                     'product_name': item.product.name,
