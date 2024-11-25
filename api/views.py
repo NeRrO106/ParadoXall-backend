@@ -73,7 +73,7 @@ def create_order(request):
 def send_order_to_restaurant(order_data):
     subject='O noua comanda'
 
-    delivery_method_display = 'Ridicare' if order_data['delivery_methods'] == 'pickup' else 'Livrare'
+    delivery_method_display = 'Ridicare' if order_data['delivery_method'] == 'pickup' else 'Livrare'
     delivery_adress_display = 'N/A' if order_data['address'] == 'ridicare' else order_data['address']
     delivery_city_display = 'N/A' if order_data['city'] == 'ridicare' else order_data['city']
 
