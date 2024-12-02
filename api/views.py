@@ -77,7 +77,7 @@ def put_order(request, order_id):
     try:
         order = Order.objects.get(order_id = order_id)
     except Order.DoesNotExist:
-        return Response({'error': 'Order not found'}, status=HTTP_404_NOT_FOUND)
+        return Response({'error': 'Order not found'}, status=status.HTTP_404_NOT_FOUND)
     order.is_completed = 'yes'
     order.save()
     serializer =  OrderSerializer(order)
