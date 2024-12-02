@@ -4,7 +4,7 @@ from .models import Product, Order, Order_Item
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import OrderSerializer
+from .serializers import OrderSerializer, ProductSerializer
 from django.shortcuts import get_object_or_404
 
 from django.core.mail import send_mail
@@ -82,6 +82,27 @@ def put_order(request, id):
     order.save()
     serializer =  OrderSerializer(order)
     return Response({'message:': 'Order edited succesfully'}, status=status.HTTP_200_OK)
+
+@api_view(['DELETE'])
+def delete_product(request, id):
+    try:
+        product = Product.objects.get(product_id = id)
+        product.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    except Product.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['PUT'])
+def edit_product(request, id):
+    try:
+        product = Product.objects.get(product_id = id)
+    except Product.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    serializer = ProductSerializer(product, data = request.data)
+    if(serializer.is_valid()):
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 #def send_order_to_restaurant(order_data):
  #   subject='O noua comanda'
