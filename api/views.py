@@ -73,9 +73,9 @@ def create_order(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['PUT'])
-def put_order(request, order_id):
+def put_order(request, id):
     try:
-        order = Order.objects.get(order_id = order_id)
+        order = Order.objects.get(order_id = id)
     except Order.DoesNotExist:
         return Response({'error': 'Order not found'}, status=status.HTTP_404_NOT_FOUND)
     order.is_completed = 'yes'
