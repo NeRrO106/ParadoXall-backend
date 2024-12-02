@@ -72,6 +72,17 @@ def create_order(request):
         return Response({'message:': 'Order placed succesfully'}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['PUT'])
+def put_order(request, order_id):
+    try:
+        order = Order.objects.get(order_id = order_id)
+    except Order.DoesNotExist:
+        return Response({'error': 'Order not found'}, status=HTTP_404_NOT_FOUND)
+    order.is_completed = 'yes'
+    order.save()
+    serializer =  OrderSerializer(order)
+    return Response({'message:': 'Order edited succesfully'}, status=status.HTTP_200_OK)
+
 #def send_order_to_restaurant(order_data):
  #   subject='O noua comanda'
 
