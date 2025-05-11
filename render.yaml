@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: nume-aplicație
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn app:app"  # schimbă dacă aplicația ta nu e în `app.py`
+    autoDeploy: true
